@@ -32,15 +32,28 @@ public class Main {
 
 	}
 
+	/*
+	 * 출력이슈 -> for문을 통해 한줄 씩 출력하는 것이 문제
+	 * 방안 1. StringBuilder를 통해 저장 후 한번에 출력 -> ok
+	 * 방안 2. BufferedWriter를 사용해보면 어떨까?
+	 * */
 	public static void print() throws IOException {
-		//BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		StringBuilder sb = new StringBuilder();
-		char[] rs = new char[bn * 2];
 		
-		for (int i = 0; i < bn; i++)
-			sb.append(map[i] + "\n");
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		char[] rs = new char[(bn+1) * 2];
+		for (int i = 0; i < bn; i++) {
+			bw.write(String.valueOf(map[i]));
+			bw.newLine();
+		}
+	
+		bw.flush();
 		
-			System.out.print(sb);
+		//방안 1 
+//		StringBuilder sb = new StringBuilder();
+//		for (int i = 0; i < bn; i++)
+//			sb.append(map[i] + "\n");
+//		
+//			System.out.print(sb);
 	}
 	public static void merge(int begin, int end) {
 		int mid = (begin + end) / 2;
