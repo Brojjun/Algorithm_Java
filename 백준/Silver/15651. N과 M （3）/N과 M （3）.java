@@ -34,11 +34,11 @@ public class Main {
 		for(int i = 1; i <= N; i++) {
 			//if(visited[i])continue;
 			
-			visited[i] = true;
+			//visited[i] = true;
 			numbers.add(i);
 			makeNum(cnt+1);
 			numbers.remove(numbers.size()-1);
-			visited[i] = false;
+			//visited[i] = false;
 		}
 	}
 }
