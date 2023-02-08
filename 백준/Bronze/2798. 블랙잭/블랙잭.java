@@ -1,61 +1,50 @@
-	
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Arrays;
-import java.util.Scanner;
-		
-	public class Main {
+import java.util.*;
 
+public class Main {
+	public static int[] input;
+	public static int[] numbers;
+	public static boolean[] visited;
+	public static int max;
+	public static int N;
+	public static int M;
+	
+	public static void main(String[] args) throws Exception {
+		Scanner sc = new Scanner(System.in);
 		
-		static int allcard[];
-		static int max_num = 0;
-		static int max_data = 0;
-		static boolean visited[];
+		N = sc.nextInt();
+		M = sc.nextInt();
+		input = new int[N];
+		numbers = new int[N];
+		visited = new boolean[N];
+		for(int i = 0 ; i < N; i++) input[i] = sc.nextInt();
 		
-		public static void findTripleCard(int cnt, int[] card){
-			if(cnt >= 3) {
-				int imcard = card[0] +card[1] + card[2];
-				if(imcard <= max_num && imcard <= max_num)
-					max_data = Math.max(max_data, imcard);
-				return;
-			}
-			
-			for(int i = 0; i < allcard.length; i++) {
-				if(visited[i])continue;
-				else {
-					card[cnt] = allcard[i];
-					visited[i] = true;
-					
-					findTripleCard(cnt+1, card);
-					visited[i] = false;
-					card[cnt] = 0;
-				}
-			}
+		makeNum(0, 0);
+		
+		System.out.println(max);
 			
 		}
-		
-		public static void main(String[] args) throws Exception {
-			
-			Scanner sc = new Scanner(System.in);
-			int n = sc.nextInt();
-			max_num = sc.nextInt();
-			int[] imm = new int[n];
-			for(int i = 0; i < n; i++) imm[i] = sc.nextInt();
-			allcard = imm;
-			visited = new boolean[n];
-			findTripleCard(0, new int[3]);
-			System.out.println(max_data);
-			
-			
-		}
-			
-	
-			
-}		
-	
 
+	private static void makeNum(int cnt, int start) {
+		if(cnt == 3) {
+			int num = 0;
+			for(int i = 0 ; i < 3; i++)num += numbers[i];
+			
+			if(num <= M) max = Math.max(max, num);
+			return;
+		}
+		
+		for(int i = 0; i < N; i++) {
+			if(visited[i]) continue;
+			visited[i] = true;
+			numbers[cnt] = input[i];
+			makeNum(cnt+1, i+1);
+			visited[i] = false;
+			numbers[cnt] = 0;
+		}
+	}
+		
 	
-	
+}
